@@ -108,15 +108,15 @@ deployment.extensions "spring-prom" deleted
  
  [![](./img/arrow-circle-right.svg)](./docs/docker.md)
 
-[travis-badge]: https://travis-ci.org/indrabasak/spring-k8s-example.svg?branch=master
-[travis-badge-url]: https://travis-ci.org/indrabasak/spring-k8s-example/
+[travis-badge]: https://travis-ci.org/indrabasak/spring-k8s-prometheus.svg?branch=master
+[travis-badge-url]: https://travis-ci.org/indrabasak/spring-k8s-prometheus/
 
-[sonarqube-badge]: https://sonarcloud.io/api/project_badges/measure?project=com.basaki%3Aspring-k8s-example&metric=alert_status
-[sonarqube-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-k8s-example 
+[sonarqube-badge]: https://sonarcloud.io/api/project_badges/measure?project=com.basaki%3Aspring-k8s-prometheus&metric=alert_status
+[sonarqube-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-k8s-prometheus
 
-[technical-debt-ratio-badge]: https://sonarcloud.io/api/project_badges/measure?project=com.basaki%3Aspring-k8s-example&metric=sqale_index
+[technical-debt-ratio-badge]: https://sonarcloud.io/api/project_badges/measure?project=com.basaki%3Aspring-k8s-prometheus&metric=sqale_index
 [technical-debt-ratio-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-k8s-example 
 
-[coverage-badge]: https://sonarcloud.io/api/project_badges/measure?project=com.basaki%3Aspring-k8s-example&metric=coverage
+[coverage-badge]: https://sonarcloud.io/api/project_badges/measure?project=com.basaki%3Aspring-k8s-prometheus&metric=coverage
 [coverage-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-k8s-example
 
