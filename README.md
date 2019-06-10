@@ -105,6 +105,10 @@ deployment.extensions "spring-prom" deleted
 
 
 ```
+
+```bash
+http://localhost:30090/graph
+```
  
  [![](./img/arrow-circle-right.svg)](./docs/docker.md)
 
