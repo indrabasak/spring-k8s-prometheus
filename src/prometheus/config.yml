@@ -311,3 +311,21 @@ data:
         - source_labels: [__meta_kubernetes_service_name]
           action: replace
           target_label: kubernetes_name
+
+      - job_name: 'jmx'
+
+        # metrics_path defaults to '/metrics'
+        # scheme defaults to 'http'.
+        static_configs:
+        - targets: ['localhost:9090', 'localhost:8083']
+
+      - job_name: 'example'
+
+        # Kubernetes service discovery configuration allow retrieving
+        # scrape targets from Kubernetes' REST API
+        kubernetes_sd_configs:
+        - role: endpoints
+          namespaces:
+            names:
+            - example
+
