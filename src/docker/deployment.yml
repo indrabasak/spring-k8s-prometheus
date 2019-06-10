@@ -21,13 +21,44 @@ spec:
             value: deployed
         ports:
           - containerPort: 8080
-            name: server
+            name: http
           - containerPort: 8081
             name: management
         volumeMounts:
           - name: spring-prom-config
-            mountPath: /usr/local/iovation/example/config/application-deployed.yml
+            mountPath: /usr/local/example/config/env
+            subPath: env
+            readOnly: true
+          - name: spring-prom-config
+            mountPath: /usr/local/example/config/application-deployed.yml
             subPath: application-deployed.yml # application yml
+            readOnly: true
+          - name: spring-prom-config
+            mountPath: /usr/local/example/config/prometheus.yml
+            subPath: prometheus.yml  # prometheus config
+            readOnly: true
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 1
+      - name: prometheus-jmx-exporter # metrics sidecar
+        image: sscaling/jmx-prometheus-exporter:0.11.0
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+          - name: SERVICE_PORT
+            value: "8083" # default 5556
+        volumeMounts:
+          - name: spring-prom-config
+            mountPath: /opt/jmx_exporter/config.yml
+            subPath: prometheus.yml # JMX exporter config
             readOnly: true
       volumes:
         - name: spring-prom-config

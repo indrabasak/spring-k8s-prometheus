@@ -19,6 +19,7 @@
         <powermock.version>2.0.2</powermock.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <prometheus.version>0.11.0</prometheus.version>
         <rest.assured.version>4.0.0</rest.assured.version>
         <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
         <spring.mock.version>3.0.0</spring.mock.version>
@@ -87,6 +88,13 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
+        </dependency>
+
+        <!-- Prometheus Agent -->
+        <dependency>
+            <groupId>io.prometheus.jmx</groupId>
+            <artifactId>jmx_prometheus_javaagent</artifactId>
+            <version>${prometheus.version}</version>
         </dependency>
 
         <!-- Testing -->
@@ -264,6 +272,34 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>io.prometheus.jmx</groupId>
+                            <artifactId>jmx_prometheus_javaagent</artifactId>
+                            <version>0.11.0</version>
+                            <type>jar</type>
+                            <overWrite>false</overWrite>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <destFileName>jmx_prometheus_javaagent.jar</destFileName>
+                        </artifactItem>
+                    </artifactItems>
+                </configuration>
             </plugin>
 
             <plugin>

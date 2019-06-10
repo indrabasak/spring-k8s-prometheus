@@ -20,39 +20,11 @@ data:
 
   env: |+
     JAVA_OPTS=" \
-            -server \
-            -d64 \
-            -Xms4G \
-            -Xmx4G \
-            -Xmn2G \
-            -XX:+UseParNewGC \
-            -XX:+UseConcMarkSweepGC \
-            -XX:CMSInitiatingOccupancyFraction=70 \
-            -XX:+UseCMSInitiatingOccupancyOnly \
-            -XX:+ScavengeBeforeFullGC \
-            -XX:+CMSScavengeBeforeRemark \
-            -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 \
-            -XX:ConcGCThreads=2 \
-            -XX:SurvivorRatio=8 \
-            -XX:ParallelGCThreads=2 \
-            -XX:MaxTenuringThreshold=2 \
-            -Xloggc:/var/log/iovation/tlm/gc.log \
-            -XX:+UseGCLogFileRotation \
-            -XX:NumberOfGCLogFiles=20 \
-            -XX:GCLogFileSize=10M \
-            -XX:+PrintGCDetails \
-            -XX:+PrintGCDateStamps \
-            -XX:+PrintGCApplicationStoppedTime \
-            -XX:+PrintGCApplicationConcurrentTime \
-            -XX:+PrintTenuringDistribution \
-            -XX:+PrintPromotionFailure \
-            -XX:PrintFLSStatistics=1 \
-            -Djava.net.preferIPv4Stack=true \
-            -XX:+HeapDumpOnOutOfMemoryError \
-            -Dlog4j.configuration=file:/usr/local/iovation/tlm/config/log4j2.xml \
-            -Dspring.profiles.active=deployed \
-            -Dcom.sun.management.jmxremote.port=8888 \
-            -Dcom.sun.management.jmxremote.authenticate=false \
-            -Dcom.sun.management.jmxremote.ssl=false \
             -Dcom.sun.management.jmxremote=true \
-            -javaagent:/usr/local/iovation/tlm/bin/jmx_prometheus_javaagent.jar=8081:/usr/local/iovation/tlm/config/prometheus.yml"
+            -Dcom.sun.management.jmxremote.local.only=true \
+            -Dcom.sun.management.jmxremote.port=8888 \
+            -Dcom.sun.management.jmxremote.rmi.port=8888 \
+            -Dcom.sun.management.jmxremote.ssl=false \
+            -Dcom.sun.management.jmxremote.authenticate=false
+            -javaagent:/usr/local/example/bin/jmx_prometheus_javaagent.jar=8082:/usr/local/example/config/prometheus.yml"
+
