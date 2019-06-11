@@ -319,7 +319,7 @@ data:
         static_configs:
         - targets: ['localhost:9090', 'localhost:8083']
 
-      - job_name: 'example'
+      - job_name: 'svc-disc-endpoint'
 
         # Kubernetes service discovery configuration allow retrieving
         # scrape targets from Kubernetes' REST API
@@ -329,3 +329,67 @@ data:
             names:
             - example
 
+      - job_name: 'svc-disc-endpoint-2'
+
+        # Kubernetes service discovery configuration allow retrieving
+        # scrape targets from Kubernetes' REST API
+        kubernetes_sd_configs:
+        - role: endpoints
+
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+          action: keep
+          regex: default;kubernetes;https
+
+      - job_name: 'svc-disc-service'
+
+        # Kubernetes service discovery configuration allow retrieving
+        # scrape targets from Kubernetes' REST API
+        kubernetes_sd_configs:
+        - role: service
+
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_endpoint_address_target_kind, __meta_kubernetes_endpoint_address_target_name]
+          separator: ;
+          regex: Node;(.*)
+          target_label: node
+          replacement: ${1}
+          action: replace
+        - source_labels: [__meta_kubernetes_endpoint_address_target_kind, __meta_kubernetes_endpoint_address_target_name]
+          separator: ;
+          regex: Pod;(.*)
+          target_label: pod
+          replacement: ${1}
+          action: replace
+        - source_labels: [__meta_kubernetes_namespace]
+          separator: ;
+          regex: (.*)
+          target_label: namespace
+          replacement: $1
+          action: replace
+        - source_labels: [__meta_kubernetes_service_name]
+          separator: ;
+          regex: (.*)
+          target_label: service
+          replacement: $1
+          action: replace
+        - source_labels: [__meta_kubernetes_pod_name]
+          separator: ;
+          regex: (.*)
+          target_label: pod
+          replacement: $1
+          action: replace
+
+      - job_name: 'svc-disc-node'
+
+        # Kubernetes service discovery configuration allow retrieving
+        # scrape targets from Kubernetes' REST API
+        kubernetes_sd_configs:
+        - role: node
+
+      - job_name: 'svc-disc-pod'
+
+        # Kubernetes service discovery configuration allow retrieving
+        # scrape targets from Kubernetes' REST API
+        kubernetes_sd_configs:
+        - role: pod
