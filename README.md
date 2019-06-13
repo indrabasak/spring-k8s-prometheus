@@ -3,7 +3,7 @@
 [![Technical debt ratio][technical-debt-ratio-badge]][technical-debt-ratio-badge-url] 
 [![Coverage][coverage-badge]][coverage-badge-url]
 
-![](./img/kubernetes-docker.svg)
+![](./img/spring-k8s-prometheus.svg)
  
 Spring Boot Example with Kubernetes and Prometheus
 ======================================================
@@ -108,6 +108,15 @@ deployment.extensions "spring-prom" deleted
 
 ```bash
 http://localhost:30090/graph
+
+http://spring-prom.example.svc:8082/metrics
+
+java_lang_GarbageCollector_LastGcInfo_memoryUsageAfterGc_max{instance="10.1.0.247:8082",job="svc-disc-endpoint",key="Code Cache",name="MarkSweepCompact",namespace="example",pod="spring-prom-9f5f48c74-vs77x",service="spring-prom"}
+
+java_lang_GarbageCollector_LastGcInfo_memoryUsageAfterGc_max{instance="spring-prom.example.svc:8083",job="svc-disc-service",key="Compressed Class Space",name="Copy",namespace="example",service="spring-prom"}
+
+ps auxw | grep kube-proxy
+indra.basak      67603   0.0  0.0  4268056    808 s019  S+   11:15PM   0:00.00 grep kube-proxy
 ```
  
  [![](./img/arrow-circle-right.svg)](./docs/docker.md)
