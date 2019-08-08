@@ -7,7 +7,16 @@
  
 Spring Boot Example with Kubernetes and Prometheus
 ======================================================
-This is an example of using a Spring Boot application with Kubernetes and Docker. 
+This is example of using a Spring Boot application with Kubernetes, Prometheus,
+and Grafana. 
+
+## Prometheus
+[Prometheus](https://prometheus.io/) is an open source monitoring 
+and alerting system. It's primarliy used for collecting and storing metrics. It
+also provides a graphical interface and a query language (PromQL) for querying 
+metrics.
+
+Prometheus uses a pull model for collecting metrics. 
 
 ## [Maven Changes](#maven-changes)
 In this example, Spotify's [Dockerfile Maven Plugin](https://github.com/spotify/dockerfile-maven) 
