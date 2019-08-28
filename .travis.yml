@@ -1,19 +1,19 @@
 language: java
 jdk:
-  - openjdk11
+- openjdk11
 before_script:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
-  - mvn clean install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=indrabasak-github
-    -Dsonar.login=$SONAR_TOKEN
+- mvn clean install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=indrabasak-github
+  -Dsonar.login=$SONAR_TOKEN
 cache:
   directories: "– $HOME/.m2 – $HOME/.sonar/cache"
 notifications:
   email:
-    - indra.basak1@gmail.com
+  - indra.basak1@gmail.com
   on_success: change
   on_failure: always
   use_notice: true
 env:
   global:
-    secure: NSiU2BQN7xsJH23BG7jjcny/8QiAxbvF40VOBcR7k/oO9RyhYyWVAftRDRoBZF/TklNBxvmVD/TIZAmfzHFS+5bJSF1iZiKREESvJbd4eRPQTy1wLr0gG8n4PNaqeOEcblhmik8J/e+TQQUKUcS1mpvJOsYp3ngq72YRO/5Ein7LMUChkTqA9Hlo65H6RHL5MV4tu8xzmhjaw9kIvDIIarR3Vx56Iq1fKMHJu7/L8mqI+mDnAuqENGcAMF/B1YKk4DMnwxoGdCUHGnJ5go+1ZL0J7Uw2FYNT9tE70MyNGV20mzPUHVFb6CNhPvcCSK93QkYjlmoy9uAmZbWC4pKmf1yTf+vyCQzsWB3XWQMqLFL3XX9NyPoiNe6CvBVUmwM0GKJ3c0LWkdknWH4Q7IPJdDhYXD1q0k08HJ5A4QP90rDRFD8Y/nmoaTy2you/iNkZe2DPMMssFBRI2HT8TTIr/Yb68Ykg/OxAQU/udAUNpcIUFVXctOPvELSbOiFzkdI/3x5ZxJ+NjIOGHVWlKwyZTf+1w+6F9yep8QC9WMU6ncAtOPYyULP7tMSKgluSzRhfUm/zEnxTaM9jIkQwXOfjC0Z3nunKjmhRwmUkPnLfReKzbhyXNAwT9kfME8ojb2rLbqZyTPo70pC84VM1iy4SBt/jtwEFD18tjg5Ml8jXneE=
+  - secure: EVY4dWcEV5YLwAZ8raYvcM3eZoE2kVr7k/bW+KZtCHhSBSqTsOo7Op89iExo/fCI35b5TWZPj+XctYYUqgARP/IsX6o/L6Akk02hZbKW6fTPdStStY1xlIJjQllvpwxyQ/ICObeYZu8sAoEFcurlCoh1RhJUz4I5OoGIvyVWBa+BLZWC+ob/+sRiJXTLKuP/1pralashNY9SGlR/GLd1kI8A7EN46XnlSJQOSxeKHQqQXHvbU4Ua6G3JBc7jOKqYq/JckuU36JUu8WHHwMgIPmevwAsj73WqQZ0PVGwlBje/fCPXjZsN8zzq4yIyjazswWdZG7DT3vWQjB9GENyLB5ldelqGxDGCsDx/UuUttlXhCLTTcCOJCKXdkrtxPhXFG4TMDT9bSr9v7X8Ydkce4tROdAi892+mgmRfM7vKlO9l7cycUxwQzEXirUUMlGNXGlePgQMusBPiKXANZ9KeCLnBo4JL/jlpLagPpCo1xf7UygTS+frpg2wvmwZl3fhTxE+D0hDImaKv5cdVtxytnn79o4ZlwlpqixatEieC09TuKhqx/+W7/U++4rpl7Aiu78NzI1RUkALPGZQe+iXHyjKa8AzgIdhqY0vmHcnouhajZsUsFWYn6najTZRuTIb+wGjf9JjhgG64AK7JvNM0TFFlHIJOT+SGIr7qDfeS3xU=
