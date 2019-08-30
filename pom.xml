@@ -21,7 +21,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <prometheus.version>0.11.0</prometheus.version>
         <rest.assured.version>4.0.0</rest.assured.version>
-        <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
+        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+        <spring.boot.version>2.1.7.RELEASE</spring.boot.version>
         <spring.mock.version>3.0.0</spring.mock.version>
         <swagger.version>2.9.2</swagger.version>
     </properties>
@@ -58,7 +59,7 @@
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>2.3.4</version>
+            <version>2.5.0</version>
         </dependency>
 
         <dependency>
@@ -253,6 +254,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -262,6 +264,7 @@
         	 <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                 <version>${spring.boot.version}</version>
                 <configuration>
                     <mainClass>com.basaki.k8s.Application</mainClass>
                 </configuration>
@@ -306,6 +309,13 @@
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>${dockerfile.maven.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                        <version>1.1.1</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <skip>false</skip>
                     <repository>basaki/spring-k8s-prometheus</repository>
@@ -328,7 +338,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.9</version>
+                <version>0.8.4</version>
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
@@ -336,7 +346,8 @@
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
-                            <destFile>${sonar.jacoco.utReportPath}</destFile>
+                            <destFile>${sonar.jacoco.reportPath}</destFile>
+                            <append>true</append>
                             <propertyName>surefireArgLine</propertyName>
                         </configuration>
                     </execution>
@@ -371,7 +382,7 @@
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
-                            <destFile>${sonar.jacoco.reportPaths}</destFile>
+                            <destFile>${sonar.jacoco.reportPath}</destFile>
                             <propertyName>failsafe.argLine</propertyName>
                         </configuration>
                     </execution>
@@ -382,7 +393,7 @@
                             <goal>report</goal>
                         </goals>
                         <configuration>
-                            <dataFile>${sonar.jacoco.reportPaths}</dataFile>
+                            <dataFile>${sonar.jacoco.reportPath}</dataFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -390,9 +401,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0-M3</version>
                 <configuration>
-                    <argLine>${surefireArgLine}</argLine>
+                    <forkCount>3</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <argLine>-Xmx1024m</argLine>
+                    <useSystemClassLoader>false</useSystemClassLoader>
                     <includes>
                         <include>**/*Test.java</include>
                         <include>**/*Tests.java</include>
@@ -402,8 +416,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.18.1</version>
+                <version>3.0.0-M3</version>
                 <configuration>
+                    <classesDirectory>${project.build.outputDirectory}</classesDirectory>
                     <includes>
                         <include>**/*FunctionalTests.java</include>
                         <include>**/*IntegrationTests.java</include>
@@ -422,7 +437,7 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.3.0.603</version>
+                <version>3.6.0.1398</version>
             </plugin>
         </plugins>
     </build>
@@ -440,12 +455,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>3.1.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.17</version>
+                <version>3.0.0-M3</version>
             </plugin>
         </plugins>
     </reporting>
